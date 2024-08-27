@@ -73,7 +73,8 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       fontFamily:{
-        'Inter':['Inter',"sans-serif"]
+        'Inter':['Inter',"sans-serif"],
+        'poppins':["Poppins",'sans-serif']
       }
     },
   },

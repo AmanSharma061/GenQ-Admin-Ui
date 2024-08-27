@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import NextAuthProvider from "@/components/Provider/NextAuthProvider";
 import SideBar from "@/components/common/SideBar";
 import NavHeader from "@/components/common/NavHeader";
@@ -20,10 +20,10 @@ export default function RootLayout({
   return (
     <NextAuthProvider>
       <html lang="en">
-        <body className={"w-full h-screen bg-[#f5f7fa]"}>
+        <body className={"w-full h-full bg-[#f5f7fa]"}>
           <div className="w-full flex h-full">
             <SideBar />
-            <div className=" w-full ">
+            <div className=" w-full ml-[13%] h-full overflow-auto">
               <NavHeader />
 
               {children}

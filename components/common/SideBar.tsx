@@ -9,7 +9,7 @@ const SideBar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="w-[13%] h-full bg-[#FFFFFF] border-r border-r-[#E6EFF5]">
+    <div className="w-[13%] h-full bg-[#FFFFFF] border-r border-r-[#E6EFF5] fixed">
       <div className="w-full h-24  items-center flex justify-center">
         <p className="text-2xl font-bold -mt-4 text-[#343C6A]">Gen Q Admin</p>
       </div>
@@ -44,7 +44,7 @@ const SideBar = () => {
                   <p
                     className={`${
                       isActive ? "!text-[#2D60FF]  " : "text-[#B1B1B1]"
-                    } !font-Inter !font-medium mt-1`}
+                    } !font-poppins !font-medium mt-1`}
                   >
                     {name}
                   </p>
