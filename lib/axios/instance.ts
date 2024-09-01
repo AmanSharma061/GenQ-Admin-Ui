@@ -1,3 +1,4 @@
+'use client'
 import { BACKEND_URL } from '@/config';
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
@@ -8,9 +9,9 @@ export const instance = axios.create({
 
 instance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 
-//    const token=localStorage.getItem('token');
-//    console.log(token)
-//     config.headers.Authorization=`Bearer ${token}`
+   const token=localStorage.getItem('token');
+   console.log(token)
+    config.headers.Authorization=`Bearer ${token}`
     return { ...config }
 })
 

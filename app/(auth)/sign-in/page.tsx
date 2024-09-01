@@ -15,26 +15,20 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useSignIn } from "../apis";
 import { signIn } from "next-auth/react";
-const formSchema = z.object({
-  username: z.string().min(2).max(50).toLowerCase(),
-  password: z.string().min(8).max(20)
-});
+import { loginFormSchema } from "@/lib/schemas";
 
 const page = () => {
   const { mutate: SignInMutation, isPending: isSigningIn } = useSignIn();
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof loginFormSchema>>({
+    resolver: zodResolver(loginFormSchema),
     defaultValues: {
       username: "",
       password: ""
     }
   });
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    SignInMutation(values);
-    signIn('credentials',{
-      redirect:true,
-      callbackUrl:"/"
-    })
+  async function onSubmit(values: z.infer<typeof loginFormSchema>) {
+     SignInMutation(values);
+
   }
 
   return (

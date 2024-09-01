@@ -1,3 +1,4 @@
+import { instance } from "@/lib/axios/instance";
 import CredentialProvider from "next-auth/providers/credentials";
 
 
@@ -8,7 +9,7 @@ const authOptions = {
     },
     providers: [
         CredentialProvider({
-            name: "Gen Q Admin",
+            name: "Credentials",
             credentials: {
                 email: {
                     label: "Email",
@@ -21,10 +22,11 @@ const authOptions = {
                     placeholder: "password",
                 },
             },
-            async authorize(credentials: any, user: any) {
+            async authorize(credentials: any, req: any) {
                 try {
-                    // api call to get the user object from db 
-                    return {}
+                    const user = JSON.parse(JSON.stringify(credentials.user))
+
+                    return user;
                 } catch (error) {
                     console.log(error)
                 }
@@ -34,13 +36,16 @@ const authOptions = {
     callbacks: {
         async jwt({ token, user }: { token: any, user: any }) {
             if (user) {
-                token.user = user
+
+                token.user = user;
             }
-            return token;
+            return token
         },
         async session({ session, token }: { session: any, token: any }) {
+
+
             if (session) {
-                session.user = token.user
+                session.user = JSON.parse(token.user)
             }
             return session;
         }

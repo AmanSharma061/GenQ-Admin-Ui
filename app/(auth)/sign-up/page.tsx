@@ -9,25 +9,18 @@ import {
   FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { instance } from "@/lib/axios/instance";
+import Google from "@/public/assets/ggogle.svg";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Google from "@/public/assets/ggogle.svg";
 import { useSignUp } from "../apis";
-import { instance } from "@/lib/axios/instance";
-import { redirect } from "next/navigation";
-const formSchema = z.object({
-  username: z.string().min(2).max(50).toLowerCase(),
-  email: z.string().min(10).max(50),
-  phoneNo: z.string().min(10).max(10),
-  password: z.string().min(8).max(20),
-  metaData: z.any()
-});
+import { signUpFormSchema } from "@/lib/schemas";
 
 const page = () => {
   const { mutate: SignUpMutation, isPending: isSigningUp ,isSuccess} = useSignUp();
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof signUpFormSchema>>({
+    resolver: zodResolver(signUpFormSchema),
     defaultValues: {
       username: "",
       email: "",
@@ -40,7 +33,7 @@ const page = () => {
       }
     }
   });
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof signUpFormSchema>) {
     const data = await instance.get("https://api.ipify.org?format=json");
     let ip = data.ip;
     let metaData = {

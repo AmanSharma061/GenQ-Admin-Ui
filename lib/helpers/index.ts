@@ -27,15 +27,16 @@ export const downloadZip = async (urls: string[]) => {
 };
 
 const generateQr = async (payload: { no_of_qrs: number, user_id: string }) => {
-  const response = await instance.post('/generate/qr', payload);
+  const response = await instance.post('/qr/generate', payload);
   return response
 }
 export const useHandleQrGeneration = () => {
   return useMutation({
     mutationFn: generateQr,
     onSuccess: (data: any) => {
+  
       toast({
-        description: data?.data?.message
+        description: data?.message
       })
     }
   }
