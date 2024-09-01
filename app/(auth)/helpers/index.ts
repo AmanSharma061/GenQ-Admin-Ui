@@ -1,14 +1,8 @@
+'use client'
 import { instance } from "@/lib/axios/instance"
-
-interface payloadTypes {
-    username: string;
-    email: string;
-    phoneNo: string;
-    password: string;
-    metaData: any;
-
-}
-export const signUpHandler = async (payload: payloadTypes) => {
+import { signUpFormSchema } from "@/lib/schemas";
+import { z } from "zod";
+export const signUpHandler = async (payload: z.infer<typeof signUpFormSchema>) => {
 
     const response = await instance.post('/auth/sign-up', payload);
     if (response) {
@@ -16,7 +10,7 @@ export const signUpHandler = async (payload: payloadTypes) => {
     }
 
 }
-export const signInHandler = async (payload: {username:string,password:string}) => {
+export const signInHandler = async (payload: { username: string, password: string }) => {
 
     const response = await instance.post('/auth/sign-in', payload);
     if (response) {
