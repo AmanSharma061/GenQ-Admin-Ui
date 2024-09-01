@@ -1,11 +1,20 @@
 import NextAuthProvider from "@/components/Provider/NextAuthProvider";
-import React, { ReactNode } from "react";
-import '../globals.css'
-const layout = ({ children }: { children: ReactNode }) => {
+import QueryProvider from "@/components/Provider/QueryProvider";
+import { Toaster } from "@/components/ui/toaster";
+import React from "react";
+import "../globals.css";
+const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html>
-      <body className="w-full h-[100vh] overflow-hidden ">{children}</body>
-    </html>
+    <NextAuthProvider>
+      <html>
+        <QueryProvider>
+          <body className="w-full h-[100vh] overflow-hidden relative">
+            <Toaster  />
+            {children}
+          </body>
+        </QueryProvider>
+      </html>
+    </NextAuthProvider>
   );
 };
 

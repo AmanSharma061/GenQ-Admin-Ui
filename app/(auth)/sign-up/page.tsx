@@ -1,5 +1,4 @@
 "use client";
-import { metadata } from "@/app/(root)/layout";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,12 +9,13 @@ import {
   FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import googlee from "@/public/assets/google.svg";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import Google from "@/public/assets/ggogle.svg";
+import { useSignUp } from "../apis";
+import { instance } from "@/lib/axios/instance";
+import { redirect } from "next/navigation";
 const formSchema = z.object({
   username: z.string().min(2).max(50).toLowerCase(),
   email: z.string().min(10).max(50),
@@ -25,26 +25,32 @@ const formSchema = z.object({
 });
 
 const page = () => {
+  const { mutate: SignUpMutation, isPending: isSigningUp ,isSuccess} = useSignUp();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
-      email:"",
-      phoneNo:"",
-      password:"",
-      metaData:{}
+      email: "",
+      phoneNo: "",
+      password: "",
+      metaData: {
+        os: "",
+        isFromMobile: false,
+        ip_address: ""
+      }
     }
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const { data } = await axios.get("https://api.ipify.org?format=json");
-    let { ip } = data;
-
+    const data = await instance.get("https://api.ipify.org?format=json");
+    let ip = data.ip;
     let metaData = {
-      platform: window.navigator?.userAgentData?.platform,
+      os: window.navigator?.userAgentData?.platform,
       isFromMobile: window.navigator?.userAgentData?.mobile,
       ip_address: ip
     };
     values["metaData"] = metaData;
+    SignUpMutation(values);
+   
   }
 
   return (
@@ -54,11 +60,6 @@ const page = () => {
         {" "}
         <div className="w-full">
           <p className="font-poppins font-semibold text-2xl">Register </p>
-          <p className="font-poppins font-medium text-sm mt-1">Sign up with</p>
-          <div>
-            <div className="gsi-material-button-state"></div>
-            <Image src={googlee} alt="Google" className="border" />
-          </div>
         </div>
         <div className="w-full flex items-center my-16 ">
           <Form {...form}>
@@ -131,7 +132,11 @@ const page = () => {
                 )}
               />
               <Button type="submit" className="w-full">
-                Submit
+                {isSigningUp ? "Submitting" : "Submit"}
+              </Button>
+              <Button className="flex w-full gap-x-4 items-center font-poppins text-xs">
+                <Google className="h-6" />
+                <p className="">Sign up with google</p>
               </Button>
             </form>
           </Form>

@@ -8,12 +8,12 @@ export const instance = axios.create({
 
 instance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 
-    console.log(config)
+//    const token=localStorage.getItem('token');
+//    console.log(token)
+//     config.headers.Authorization=`Bearer ${token}`
     return { ...config }
 })
 
 instance.interceptors.response.use((response: AxiosResponse) => {
-
-
-    return {...response.data}
+    return response.data
 })  
