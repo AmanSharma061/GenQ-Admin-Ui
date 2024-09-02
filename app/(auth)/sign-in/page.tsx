@@ -16,6 +16,7 @@ import { z } from "zod";
 import { useSignIn } from "../apis";
 import { signIn } from "next-auth/react";
 import { loginFormSchema } from "@/lib/schemas";
+import Link from "next/link";
 
 const page = () => {
   const { mutate: SignInMutation, isPending: isSigningIn } = useSignIn();
@@ -27,8 +28,7 @@ const page = () => {
     }
   });
   async function onSubmit(values: z.infer<typeof loginFormSchema>) {
-     SignInMutation(values);
-
+    SignInMutation(values);
   }
 
   return (
@@ -80,12 +80,17 @@ const page = () => {
               <Button type="submit" className="w-full">
                 {isSigningIn ? "Submitting" : "Submit"}
               </Button>
+
               <Button className="flex w-full gap-x-4 items-center font-poppins text-xs">
                 <Google className="h-6" />
-                <p className="">Sign up with google</p>
+                <p className="">Sign in with google</p>
               </Button>
+            
             </form>
           </Form>
+          <p className="font-poppins font-medium text-sm">
+                Don't have an account yet ? {" "}<Link className="underline" href={'/sign-up'}>Sign Up</Link>
+              </p>
         </div>
       </div>
     </div>
