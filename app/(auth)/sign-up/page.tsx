@@ -6,7 +6,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { instance } from "@/lib/axios/instance";
@@ -18,7 +18,11 @@ import { useSignUp } from "../apis";
 import { signUpFormSchema } from "@/lib/schemas";
 
 const page = () => {
-  const { mutate: SignUpMutation, isPending: isSigningUp ,isSuccess} = useSignUp();
+  const {
+    mutate: SignUpMutation,
+    isPending: isSigningUp,
+    isSuccess,
+  } = useSignUp();
   const form = useForm<z.infer<typeof signUpFormSchema>>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
@@ -29,9 +33,9 @@ const page = () => {
       metaData: {
         os: "",
         isFromMobile: false,
-        ip_address: ""
-      }
-    }
+        ip_address: "",
+      },
+    },
   });
   async function onSubmit(values: z.infer<typeof signUpFormSchema>) {
     const data = await instance.get("https://ip-extractor.onrender.com/ip");
@@ -39,11 +43,10 @@ const page = () => {
     let metaData = {
       os: window.navigator?.userAgentData?.platform,
       isFromMobile: window.navigator?.userAgentData?.mobile,
-      ip_address: ip
+      ip_address: ip,
     };
     values["metaData"] = metaData;
     SignUpMutation(values);
-   
   }
 
   return (

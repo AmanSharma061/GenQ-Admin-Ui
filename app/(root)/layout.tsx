@@ -10,12 +10,12 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "GenQ Admin ",
-  description: ""
+  description: "",
 };
 
 export default function RootLayout({
   children
-}: {
+}:{
   children: React.ReactNode;
 }) {
   return (
