@@ -1,8 +1,17 @@
+
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { useMutation } from "@tanstack/react-query";
 import { instance } from "../axios/instance";
 import { toast } from "@/hooks/use-toast";
+import { redirect } from "next/navigation";
+const date=new Date();
+
+const year=(date.getFullYear())
+const month=(date.getMonth())
+const day=(date.getDay())
+const today=[day,month,year].join("_");
+
 export const downloadZip = async (urls: string[]) => {
   try {
     const zip = new JSZip();
@@ -19,27 +28,11 @@ export const downloadZip = async (urls: string[]) => {
     });
     fetchPromises && (await Promise.all(fetchPromises));
     const zipBlob = await zip.generateAsync({ type: "blob" });
-    saveAs(zipBlob, "files.zip");
+    saveAs(zipBlob, `${today}.zip`);
+    return {message:"Qrs downloaded successfully."}
   } catch (err) {
     console.error(err);
   } finally {
   }
 };
 
-const generateQr = async (payload: { no_of_qrs: number, user_id: string }) => {
-  const response = await instance.post('/qr/generate', payload);
-  return response
-}
-export const useHandleQrGeneration = () => {
-  return useMutation({
-    mutationFn: generateQr,
-    onSuccess: (data: any) => {
-  
-      toast({
-        description: data?.message
-      })
-    }
-  }
-
-  )
-}

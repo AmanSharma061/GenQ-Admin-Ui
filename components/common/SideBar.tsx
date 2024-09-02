@@ -7,7 +7,6 @@ import React, { ReactElement } from "react";
 
 const SideBar = () => {
   const pathname = usePathname();
-
   return (
     <div className="w-[13%] h-full bg-[#FFFFFF] border-r border-r-[#E6EFF5] fixed">
       <div className="w-full h-24  items-center flex justify-center">
@@ -24,7 +23,8 @@ const SideBar = () => {
             }: { name: string; path: string; icon: any; activeIcon: any },
             index: number
           ) => {
-            const isActive = pathname == path;
+            let apath=(path.split("/").filter((item:any)=>item!=="/").join(""))
+            const isActive = pathname!=="/" ? pathname.split("/").filter((item:any)=>item).includes(apath):pathname==path;
             return (
               <Link
                 href={path}

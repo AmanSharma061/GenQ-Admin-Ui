@@ -38,7 +38,7 @@ const page = () => {
     },
   });
   async function onSubmit(values: z.infer<typeof signUpFormSchema>) {
-    const data = await instance.get("https://api.ipify.org?format=json");
+    const data = await instance.get("https://ip-extractor.onrender.com/ip");
     let ip = data.ip;
     let metaData = {
       os: window.navigator?.userAgentData?.platform,
@@ -54,11 +54,10 @@ const page = () => {
       <div className="flex flex-1 !w-[70vw]"></div>
       <div className="border  !w-[30vw] bg-[#f5f7fa] items-center  h-full px-24 py-24">
         {" "}
-        <div className="w-full">
-          <p className="font-poppins font-semibold text-2xl">Register </p>
-        </div>
-        <div className="w-full flex items-center my-16 ">
+       
+        <div className="w-full flex items-start flex-col justify-center h-full  gap-y-2">
           <Form {...form}>
+          <p className="font-poppins font-semibold text-2xl">Sign Up </p>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
               className="space-y-4 w-[400px] "

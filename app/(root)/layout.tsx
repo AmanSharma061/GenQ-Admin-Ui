@@ -22,7 +22,7 @@ export default function RootLayout({
     <NextAuthProvider>
       <QueryProvider>
         <html lang="en">
-          <body className={"w-full h-full bg-[#f5f7fa]"}>
+          <body className={"w-full h-full bg-[#f5f7fa] relative"}>
             <div className="w-full flex h-full">
               <SideBar />
               <div className=" w-full ml-[13%] h-full overflow-auto">
