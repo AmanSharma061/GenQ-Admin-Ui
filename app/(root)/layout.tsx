@@ -23,14 +23,11 @@ export default function RootLayout({
       <QueryProvider>
         <html lang="en">
           <body className={"w-full h-full bg-[#f5f7fa] relative"}>
-            <div className="w-full flex h-full">
-              <SideBar />
-              <div className=" w-full ml-[13%] h-full overflow-auto">
-                <NavHeader />
-                <Toaster />
-                {children}
-              </div>
-            </div>
+           <SideBar/>
+           <NavHeader/>
+          <div className="2xl:ml-[13%]  lg:ml-[20vw] xl:ml-[20vw] md:ml-[12%] ml-[20%]">
+          {children}
+          </div>
           </body>
         </html>
       </QueryProvider>

@@ -1,13 +1,14 @@
+// next.config.js
+
 module.exports = {
-    images: {
-      domains:['genqbackend.s3.ap-south-1.amazonaws.com']
-    },
-    webpack(config:any) {
-      config.module.rules.push({
-        test: /\.svg$/,
-        use: ['@svgr/webpack'],
-      });
-      return config;
-    },
-   
-  }
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
+    return config;
+  },
+  images: {
+    domains: ['genqbackend.s3.ap-south-1.amazonaws.com'],
+  },
+};

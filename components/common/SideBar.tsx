@@ -8,11 +8,12 @@ import React, { ReactElement } from "react";
 const SideBar = () => {
   const pathname = usePathname();
   return (
-    <div className="w-[13%] h-full bg-[#FFFFFF] border-r border-r-[#E6EFF5] fixed">
+    <div className="2xl:w-[13%] lg:w-[20vw]  h-full bg-[#FFFFFF] border-r border-r-[#E6EFF5] fixed">
       <div className="w-full h-24  items-center flex justify-center">
-        <p className="text-2xl font-bold -mt-4 text-[#343C6A]">Gen Q Admin</p>
+        <p className="text-2xl font-bold -mt-4 text-[#343C6A] 2xl:flex xl:hidden lg:hidden hidden">Gen Q Admin</p>
+        <p className="text-2xl font-bold -mt-4 text-[#343C6A] 2xl:hidden ">GQ </p>
       </div>
-      <div className="flex flex-col gap-y-1 ">
+      <div className="flex flex-col gap-y-1 items-center justify-center">
         {sideBarData?.map(
           (
             {
@@ -23,8 +24,10 @@ const SideBar = () => {
             }: { name: string; path: string; icon: any; activeIcon: any },
             index: number
           ) => {
-            let apath=(path.split("/").filter((item:any)=>item!=="/").join(""))
-            const isActive = pathname!=="/" ? pathname.split("/").filter((item:any)=>item).includes(apath):pathname==path;
+            const isActive =
+              pathname == "/qr/generated" && path == "/qr/generate"
+                ? true
+                : pathname == path;
             return (
               <Link
                 href={path}
@@ -44,7 +47,7 @@ const SideBar = () => {
                   <p
                     className={`${
                       isActive ? "!text-[#2D60FF]  " : "text-[#B1B1B1]"
-                    } !font-poppins !font-medium mt-1`}
+                    } !font-poppins !font-medium mt-1 hidden lg:flex `}
                   >
                     {name}
                   </p>

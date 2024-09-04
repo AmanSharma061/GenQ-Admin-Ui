@@ -1,15 +1,9 @@
-import EditProfile from "@/components/setting/EditProfile";
-import NavbarSetting from "@/components/setting/NavbarSetting";
-import React from "react";
-import { any } from "zod";
+import React from 'react'
 
 const page = () => {
   return (
-    <div>
-      <NavbarSetting />
-      <EditProfile />
-    </div>
-  );
-};
+    <div>page</div>
+  )
+}
 
-export default page;
+export default page

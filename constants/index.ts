@@ -29,7 +29,7 @@ export const sideBarData: SideBarTypes[] = [
     },
     {
         name: "Generate Qr",
-        path: '/generate-qr',
+        path: '/qr/generate',
         icon: Qr,
         activeIcon: QrActive
     },

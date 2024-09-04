@@ -12,7 +12,7 @@ const month=(date.getMonth())
 const day=(date.getDay())
 const today=[day,month,year].join("_");
 
-export const downloadZip = async (urls: string[]) => {
+export const downloadZip = async (urls:String[]) => {
   try {
     const zip = new JSZip();
     const fetchPromises = urls?.map(async (url, index) => {
