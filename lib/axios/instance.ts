@@ -10,9 +10,13 @@ export const instance = axios.create({
 
 instance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 
-   const token=localStorage.getItem('token');
-    config.headers.Authorization=`Bearer ${token}`
-    return { ...config }
+    const token = localStorage.getItem('token');
+    const userId = JSON.parse(localStorage.getItem("data"))?.user?.user_id
+    
+    config.headers.Authorization = `Bearer ${token}`
+    config.headers.user_id=userId
+
+    return config 
 })
 
 instance.interceptors.response.use((response: AxiosResponse) => {

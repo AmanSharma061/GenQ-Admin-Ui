@@ -23,7 +23,7 @@ export const useHandleQrGeneration = () => {
     )
 }
 
-export const useGetQrUrls = (payload:any) => {
+export const useGetQrUrls = (payload: any) => {
     return useQuery({
         queryKey: ['get-qr-urls'],
         queryFn: async () => {
@@ -36,4 +36,24 @@ export const useGetQrUrls = (payload:any) => {
         },
 
     })
-}  
+}
+
+export const useGetCounts = () => {
+    return useQuery({
+        queryKey: ['all-counts'],
+        queryFn: async () => {
+            try {
+                const response = await instance.get('/get-all-counts');
+                if (response) {
+                    return response;
+                }
+            } catch (error) {
+                console.log(`Error in fetching counts`, error)
+            }
+        },
+        meta:{
+            errorMsg:true
+        }
+
+    })
+}

@@ -1,5 +1,5 @@
-import NextAuthProvider from "@/components/Provider/NextAuthProvider";
-import QueryProvider from "@/components/Provider/QueryProvider";
+import NextAuthProvider from "@/components/setting/Provider/NextAuthProvider";
+import QueryProvider from "@/components/setting/Provider/QueryProvider";
 import { Toaster } from "@/components/ui/toaster";
 import React from "react";
 import "../globals.css";
